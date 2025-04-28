@@ -68,5 +68,4 @@ EnclosingClass.InnerClass innerClass = outerClass.new InnerClass();
 
 <code>var e1 = new Employee {}</code>
 
-- In both cases, it's important to remember the semi-colon after the closing bracket, because this is an expression, not a declaration. 
-- 
+- In both cases, it's important to remember the semi-colon after the closing bracket, because this is an expression, not a declaration.
