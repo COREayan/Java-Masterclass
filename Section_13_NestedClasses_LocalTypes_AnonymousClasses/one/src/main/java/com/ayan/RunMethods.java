@@ -19,9 +19,36 @@ public class RunMethods {
         var c1 = new Employee.EmployeeComparator<StoreEmployee>();
         var c2 = new StoreEmployee().new StoreComparator<StoreEmployee>();
 
+        // Using local class
+        class NameSort<T> implements Comparator<StoreEmployee> {
+
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        }
+
+        var c3 = new NameSort<StoreEmployee>();
+
+        // Using anonymous class
+        var c4 = new Comparator<StoreEmployee>() {
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
+
         sortIt(storeEmployees, c0);
         sortIt(storeEmployees, c1);
         sortIt(storeEmployees, c2);
+        sortIt(storeEmployees, c3);
+        sortIt(storeEmployees, c4);
+        sortIt(storeEmployees, new Comparator<StoreEmployee>() {
+            @Override
+            public int compare(StoreEmployee o1, StoreEmployee o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
     }
 
     public static <T> void sortIt(List<T> list, Comparator<? super T> comparator) {

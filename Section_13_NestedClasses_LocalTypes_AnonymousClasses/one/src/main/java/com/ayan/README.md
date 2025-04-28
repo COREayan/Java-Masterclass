@@ -52,3 +52,21 @@ EnclosingClass.InnerClass innerClass = outerClass.new InnerClass();
 - The anonymous class is never created with a class declaration, but it's always instantiated as part of an expression.
 - Anonymous classes are used a lot less, since the introduction of Lambda Expressions in JDK 8.
 - But there are still some use cases where an anonymous class might be a good solution.
+
+**Anonymous class creation**
+- An anonymous class is instantiated and assigned in a single statement. 
+- The new Keyword is used followed by any type.
+- This is NOT the type of the class being instantiated. 
+- It's the super class of the anonymous class, or it's the interface this anonymous class will implement below.
+
+<code>var c4 = new Comparator<StoreEmployee>() {};</code>
+- In this first example, the anonymous unnamed class will implement the Comparator interface.
+
+<code>var c4 = new Comparator<StoreEmployee>() {};</code>
+
+- In this second example, the anonymous class extends the Employee class, meaning it's a subclass of Employee.
+
+<code>var e1 = new Employee {}</code>
+
+- In both cases, it's important to remember the semi-colon after the closing bracket, because this is an expression, not a declaration. 
+- 
