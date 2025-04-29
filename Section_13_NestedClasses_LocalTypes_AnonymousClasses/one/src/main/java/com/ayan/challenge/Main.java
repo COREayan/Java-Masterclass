@@ -4,31 +4,31 @@ import java.time.LocalDate;
 import java.util.*;
 
 // Step 1 : Created a record named Employee,
-record Employee(String firstName, String lastName, LocalDate hireDate) {}
+record Engineer(String firstName, String lastName, LocalDate hireDate) {}
 
 public class Main {
     public static void main(String[] args) {
         // Step 2 : Setup a list of Employees with various names and hire dates in the main methods.
-        List<Employee> employeeList = Arrays.asList(
-                new Employee("John", "Doe", LocalDate.of(2020, 5, 15)),
-                new Employee("Jane", "Smith", LocalDate.of(2018, 8, 10)),
-                new Employee("Ayanabha", "Pramanik", LocalDate.of(2022, 3, 1)),
-                new Employee("Emily", "Clark", LocalDate.of(2019, 11, 20)),
-                new Employee("Michael", "Brown", LocalDate.of(2021, 7, 5))
+        List<Engineer> employeeList = Arrays.asList(
+                new Engineer("John", "Doe", LocalDate.of(2020, 5, 15)),
+                new Engineer("Jane", "Smith", LocalDate.of(2018, 8, 10)),
+                new Engineer("Ayanabha", "Pramanik", LocalDate.of(2022, 3, 1)),
+                new Engineer("Emily", "Clark", LocalDate.of(2019, 11, 20)),
+                new Engineer("Michael", "Brown", LocalDate.of(2021, 7, 5))
         );
 
         // Step 3 : Setup a new method that takes this list of Employees as a parameter.
         processEmployees(employeeList);
     }
 
-    public static void processEmployees(List<Employee> employees) {
+    public static void processEmployees(List<Engineer> employees) {
         // Step 4 : Create a local class to wrap this class, (pass Employee to the constructor and include a field for this) and add some calculated fields, such as fullname, and years worked.
         class EmployeeInfo {
-            private Employee originalEmployee;
+            private Engineer originalEmployee;
             private String fullName;
             private int yearsWorked;
 
-            public EmployeeInfo(Employee employee) {
+            public EmployeeInfo(Engineer employee) {
                 this.originalEmployee = employee;
                 this.fullName = employee.firstName() + " " + employee.lastName();
                 this.yearsWorked = LocalDate.now().getYear() - employee.hireDate().getYear();
@@ -49,7 +49,7 @@ public class Main {
         }
         // Step 5: Create a list of employees using your local class.
         List<EmployeeInfo> employeeInfos = new ArrayList<>();
-        for (Employee employee : employees) {
+        for (Engineer employee : employees) {
             employeeInfos.add(new EmployeeInfo(employee));
         }
 
