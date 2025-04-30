@@ -116,3 +116,85 @@ Disadvantages of Implementing a Runnable and creating a Thread instance with it
 - You do have less control over the thread's behavior and properties. 
 - In other words, You can't access the thread's methods and fields directly, from the run method.
 
+**Threads accessing memory**
+- Each thread has its own stack for local variables and method calls.
+![img.png](img.png)
+- One thread doesn't have acess to another thread's stack.
+- Every concurrent thread additionally has access to the process memory, or the heap.
+- Every concurrent thread additionally has access to the process memory, or the heap.
+- This is where objects and their data reside.
+- This shared memory space allows all threads, to read and modify the same objects.
+- When one thread changes an object on the heap, these changes are visible to other threads.
+
+**Time Slicing**
+- Time slicing is also known as time-sharing or time division.
+- It's a technique used in multitasking operating systems, to allow multiple threads or processes to share a single CPU for execution.
+- Available CPU time is sliced into small time intervals, which are divided out to the threads.
+- Each thread gets that interval, to attempt to make some progress, on the tasks it has to do.
+- Whether it completes its task or not, in that time slice, doesn't matter to the thread management system.
+- When the time is up, it has to yield to another thread, and wait until its turn again.
+- Unfortunately, when your threads are sharing heap memory, things can change during that wait.
+
+**The Java Memory Model(JMM)**
+- The Java Memory Model, is a specification that defines some rules and behaviors for threads, to help control and manage shared access to data, and operations.
+- **Atomicity of Operations.** Few operations are truly atomic.
+- **Synchronization** is the process of controlling threads' access to shared resources.
+
+**Interference**
+![img_1.png](img_1.png)
+- On this slide, I'm showing you a conceptual picture of the countDown method.
+- Each box shown in this diagram is a unit of work
+- Only the smallest blocks might be atomic.
+- A Thread can be halfway through the work in any one of these blocks, when it's time slice expires, and it then has to pause or suspend execution, to allow other threads to wake up and execute.
+- This means another active thread has an open door, to that same unit of work, where the paused thread is partialloy done.
+- When threads start and pause, in the same blocks as other threads, this is called interleaving.
+
+**Interleaving**
+- When multiple threads run concurrently, their instructions can overlap or interleave in time.
+- The execution of multiple threads happens in an arbitary order.
+- The order in which the threads execute can't be guaranteed.
+
+**Atomic Actions**
+- In programming, an atomic action is one, that effectively happens all at once.
+- An atomic action either happens completely, or it doesn't happen at all.
+- Side effects of an atomic action are never visible until the action completes.
+
+**Even the simplest operations may not be atomic**
+- Even decrements and increments, aren't atomic, nor are all primitive assignments. 
+- For example, long and double assignments may not be atomic in all JVMs.
+- This slide shows three examples of operations that may not be atomic.
+
+| Increment Operand | Decrement Operand | Assignment of a long value |
+|-------------------|-------------------|----------------------------|
+| i++               | --i               | i = 100_000_000_000L       |
+
+Even simple statements can translate to multiple non-atomic steps by the virtual machine.
+
+**Thread-Safe**
+- An object or a block of code is thread safe, if it isn't compromised, by the execution of concurrent threads.
+- This means, the correctness and consistency of the program's output or its visible state, is unaffected by other threads.
+- Atomic operations and immutable objects are examples of thread-safe code.
+
+**Memory Consistency Errors**
+- The operating system may read from heap variables, and **make a copy** of the value, in each thread's own storage cache.
+- Each thread has its own small and fast memory storage, that holds its own copy of a shared resource's value.
+- One thread can modify a shared variable, but this **change might not be immediately reflected or visible.**
+- Instead, it's first updated in the thread's local cache.
+- The operating system may not flush the first thread's changes to the heap, until the thread has finished executing.
+
+**Volatile**
+- The volatile keyword is used as a modifier for class variables.
+- It's an indicator that this variable's value may be changed by multiple threads. 
+- This modifier ensures that the variable is always read from, and written to the main memory, rather than from any thread-specific caches.
+- This provides memory consistency for this variable's value across threads.
+- Volatile has limited usage though.
+
+**When to use volatile**
+
+There are specific scenarios when you'll want to use volatile.
+- When a variable is used to track the state of a shared resource, such as a counter or a flag.
+- When a variable is used to communicate between threads.
+
+**When NOT to use volatile**
+- When a variable is only used by a single thread.
+- When a variable is used to store a large amount of data.
