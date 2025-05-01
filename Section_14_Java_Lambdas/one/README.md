@@ -150,3 +150,4 @@ In the case of our generated expression, it returns an int, which is the result 
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
 | <code>(a, b) -> a + b;                                                       | When not using curly braces, the return keyword is unnecessary, and will throw a compiler error. |
 | <pre><code>(a, b) -> {<br/> var c = a + b;<br/> return c;<br/>}</code></pre> | If you use a statement block, meaning you use the curly braces, a return is required.            |
+
