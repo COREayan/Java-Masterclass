@@ -151,3 +151,110 @@ In the case of our generated expression, it returns an int, which is the result 
 | <code>(a, b) -> a + b;                                                       | When not using curly braces, the return keyword is unnecessary, and will throw a compiler error. |
 | <pre><code>(a, b) -> {<br/> var c = a + b;<br/> return c;<br/>}</code></pre> | If you use a statement block, meaning you use the curly braces, a return is required.            |
 
+**java.utill.function**
+- Java provides a library of functional interfaces in the java.util.function package.
+- We've looked at one already, the consumer interface.
+- I'll look at another of these interfaces now, the BinaryOperator, in code.
+
+**The Four categories of Functional Interfaces**
+- It's a good idea to know the four basic types of functional interfaces in the java.util.function package.
+- There are over forty interfaces in this package.
+- This slide shows the four categories, with the simplest method shown.
+- These can all be categorized as one of the following types.
+
+  | Interface Category | Basic Method Signature         | Purpose                                     |
+  |--------------------|--------------------------------|---------------------------------------------|
+  | Consumer           | <code>void accept(T t)         | execute code without returning data         |
+  | Function           | <code>R apply(T t)</code>      | return a result of an operation or fucntion |
+  | Predicate          | <code>boolean test(T t)</code> | test if a condition is true or false        |
+  | Supplier           | <code>T get()</code>           | return an instance of something             |
+
+**The Consumer interface**
+- On this slide, I'm showing the two most common Consumer interfaces, and the functional method on each.
+- The Consumer interface takes one argument of any type.
+- The BiConsumer interace takes two arguments, of two different types.
+
+| Interface Name | Method Signature                   |
+|----------------|------------------------------------|
+| Consumer       | <code>void accept(T t)</code>      |
+| BiConsumer     | <code>void accept(T t, U u)</code> |
+
+**A Consumer Lambda Expression Example**
+- This slide shows an example consumer lambda expression. It takes one argument and executes a single statement.
+- No result returned. 
+
+| Example Lambda Expression for Consumer   | Consumer Method               |
+|------------------------------------------|-------------------------------|
+| <code>s -> System.out.println(s);</code> | <code>void accept(T t)</code> |
+
+**The Predicate Interface**
+- The predicate interfaces take one or two arguments, and always returns a boolean value.
+- The are used to test a condition, and if the condition is true, to perform an operation.
+
+| Interface Name | Method Signature                    |
+|----------------|-------------------------------------|
+| Predicate      | <code>boolean test(T t)</code>      |
+| BiPredicate    | <code>boolean test(T t, U u)</code> |
+
+**A Predicate Lambda Expression Example**
+- In this example, the expression takes a String, and tests if it's equal to the literal text "Hello", ignoring case. It returns either true or false.
+
+| Example Lambda Expression for Consumer |
+|----------------------------------------|
+| s -> s.equalsIgnoreCase("Hello")       |
+
+**The Function interface**
+- On this slide, I'm showing four of the most common interfaces in this category.
+- Each has a return type, shown here as either T, or R, which stands for result, meaning a result is expected for any of these.
+- In addition to Function and BiFunction, there is also UnaryOperator and BinaryOperator.
+- You can think of the UnaryOperator as a Function Interface, but where the argument type is the same as the result type.
+- The BinaryOperator is a BiFunction interface, where both arguments have the same type, as does the result. which is why the reuslt is shown as T, and not R.
+- I've also included the type parameters with each interface name on this slide, because I wanted you to see that the result for a Function or BiFunction, is declared as the last type argument.
+- For UnaryOperator and BinaryOperator, there is only one type argument declared, because the types of the arguments and result, will be the same.
+
+  | Interface Name              | Method Signature                | Interface Name                    | Method Signature                  |
+  |-----------------------------|---------------------------------|-----------------------------------|-----------------------------------|
+  | <code>Function<T, R></code> | <code>R apply(T t)</code>       | <code>UnaryOperator< T > </code>  | <code>T apply(T t)</code>         |
+  | <code>BiFunction<T, U, R>   | <code>R apply(T t, U u) </code> | <code>BinaryOperator< T > </code> | <code>T apply(T t1, T t2) </code> |
+
+
+**A Function Interface Lambda Expresison Example**
+- On this slide, I'm showing an example of a lambda expression which targets a Function Interface.
+- This lambda expression takes a String, s, and splits that String on commas, returning an array of String.
+- In this case, the argument type, T, is a String and the result, R, is an array of String. 
+- To demonstrate how to declare a variable of this type, I'm showing a variable declaration as well.
+
+| Example Lambda Expression for Function | Function Method             | Variable Declaration for this example        |
+|----------------------------------------|-----------------------------|----------------------------------------------|
+| <code>s -> s.split(","); </code>       | <code> R apply(T t) </code> | <code>Function<String, String[]> f1; </code> |
+
+**The Supplier Interface** 
+- The supplier interface takes no arguments but returns an instance of some type, T.
+
+| Interface Name | Method Signature |
+|----------------|------------------|
+| Supplier       | T get()          |
+- You can think of this as kind of like a factory method.
+- It will produce an instance of some object.
+- However, this doesn't have to be a new or a distinct result returned. 
+
+**A Supplier Lambda Expression Example**
+- In the example I'm showing you on this slide, I'm using the Random class to generate a random Integer.
+- This method takes no arguemnt, but lamdba expressions can use final or effectively final variables in their expressions, which I'm demonstrating here. 
+- The variable random is an example of a variable from the enclosing code.
+
+| Example Lambda Expression for Consumer |
+|----------------------------------------|
+| () -> random.nextInt(1, 100)           |
+
+**Valid Lambda Declarations for different number of arguments**
+- This slide shows the many varieties of declaring a parameter type in a lambda expression.
+- Parentheses are required in all but the one case, where the funtional method has a single argument, and you don't specify a type, or use var.
+- When using var as the type, every argument must use var.
+- When specifying explicit types, every argument must include a specific type. 
+
+| Arguments in Functional Method                                                                                                          | Valid lambda syntax                                                                                               |
+|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| None                                                                                                                                    | <code>() -> statement</code>                                                                                      |
+| One                                                                                                                                     | <pre><code>s -> statement <br/>(s) -> statement<br/>(var s) -> statement<br/>(String s) -> statement</code></pre> |
+| Two <br/>- When using var, all arguments must use var.<br/>- When specifying explicit types, all arguments must specify explicit types. | <pre><code>(s, t) -> statement<br/>(var s, var t) -> statement<br/>(String s, List t) -> statement</code></pre>   |
