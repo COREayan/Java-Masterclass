@@ -258,3 +258,72 @@ In the case of our generated expression, it returns an int, which is the result 
 | None                                                                                                                                    | <code>() -> statement</code>                                                                                      |
 | One                                                                                                                                     | <pre><code>s -> statement <br/>(s) -> statement<br/>(var s) -> statement<br/>(String s) -> statement</code></pre> |
 | Two <br/>- When using var, all arguments must use var.<br/>- When specifying explicit types, all arguments must specify explicit types. | <pre><code>(s, t) -> statement<br/>(var s, var t) -> statement<br/>(String s, List t) -> statement</code></pre>   |
+
+**What's a Method Reference?**
+- Java gives us an alternative syntax to use for this second kind of lambda that uses named methods.
+- These are called method references. 
+- These provide a more compact, easier-to-read lambda expression, for methods that are already defined on a class. 
+- For the last couple of videos, I've been ignoring IntelliJ's warnings and hints, whenever I've used System.out.println in a lambda expression. 
+- IntelliJ is issuing the warnings because they can be replaced with a method reference. 
+
+**Why are these statements equal?**
+- At first glance, it's not really obvious why a method reference has this syntax.
+
+  | Lambda Expression          | Method Reference    |
+  |----------------------------|---------------------|
+  | s -> System.out.println(s) | System.out::println |
+
+- A method reference abstracts the lambda expression even further, eliminating the need to declare formal parameters. 
+- We also don't have to pass arguments to the method in question, in this case println.
+- A method reference has double colons, between the qualifying type, and the method name. 
+- In this example of a Consumer interface, not only is the method inferred, but the parameters are as well.
+- Methods which can be used as method references are based on the context of the lambda expression. 
+- This means the method reference, is again dependent on the targeted interface's method.
+- You can reference a static method on a class. 
+- You can reference an instance method from either an instance external to the expression, or an instance passed as one of the arguments. 
+- Method references can be used to increase the readability of your code. 
+
+**Deferred Method Invocation**
+- When you create variables that are lambda expressions or method references, it's important to remember that the code isn't invoked at that point.
+- The statement or code block gets invoked at the point in the code that are targeted functional method is called.
+
+**Some Terminology for the next couple of Slides**
+- A Type Reference refers to a class name, an interface name, an enum name, or a record name. 
+- Static methods are usually called using Type References but can also be called by instances in our code. 
+- This is NOT true for method references. 
+- static methods, in method references and lambda expressions, must be invoked using a reference type only. 
+- There are two ways to call an instance method. 
+- The first is when you refer to the method with an instance derived from the enclosing code. 
+- This instance is delcared outside of the method reference. 
+- The System.out::println method reference is an example of this. 
+- You'll find that some web sites call this instance a Bounded Receiver, and I actually like that terminology as a differentiator. 
+- A Bounded Receiver is an instance derived from the enclosing code, used in the lambda expression on which the method will be invoked. 
+- The second way to call an instance method is where the confusion starts. 
+- The instance used to invoke the method will be the first argument passed to the lambda expression or method reference when executed. 
+- This is known in some places as the Unbounded Receiver. 
+- It gets dynamicall bound to the first argument, which is passed to the lambda expression when the method is executed. 
+- Unfortunately, this looks an awful lot like a static method reference using a reference type. 
+- This means there are two method references that reemeble each other but have two very different meanings. 
+- The first actually does call a static method and uses a reference type to do it. 
+- You saw this earlier, when I used the sum method on the Integer wrapper class. 
+    
+<code>Integer::sum</code>
+- This is a Type Reference(Integer is the type), which will invoke a static method.
+- This is easy to understand.
+- But there is another, which you'll see when I start working with String method references in particular. 
+- Here, I show a method reference for the concat method on String. 
+    
+<code>String::concat</code>
+- Now, you know by now I hope that the concat method, isn't a static method on String. It's an instance method that is called on a specific String object. 
+- So why is this method reference even valid?
+- You could never call concat from the String class directly, because it needs to be called on a specific instance. 
+- I just said, not two slides ago, that instance methods can't be called using REference Types. 
+- But the example shown here, is a special syntax, when it's declared in the right context, meaning when it's associated to the right type of interface. 
+<code>String::concat</code>
+- This is valid when you use a method reference in the context of an **unbounded receiver.**
+
+**Remember, the unbounded receiver means that the first argument becomes the instance used on which the method gets invoked. **
+<code>String::concat</code>
+- Any method reference that uses String::concat, must be in the context of a two-parameter functional method.
+- The first parameter is the String instance on which the concat method get invoked, and the second argument is the String argument passed to the concat method. 
+- 
