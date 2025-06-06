@@ -118,7 +118,7 @@ Disadvantages of Implementing a Runnable and creating a Thread instance with it
 
 **Threads accessing memory**
 - Each thread has its own stack for local variables and method calls.
-![img.png](img.png)
+![img.png](images/img.png)
 - One thread doesn't have acess to another thread's stack.
 - Every concurrent thread additionally has access to the process memory, or the heap.
 - Every concurrent thread additionally has access to the process memory, or the heap.
@@ -141,7 +141,7 @@ Disadvantages of Implementing a Runnable and creating a Thread instance with it
 - **Synchronization** is the process of controlling threads' access to shared resources.
 
 **Interference**
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 - On this slide, I'm showing you a conceptual picture of the countDown method.
 - Each box shown in this diagram is a unit of work
 - Only the smallest blocks might be atomic.
@@ -198,3 +198,52 @@ There are specific scenarios when you'll want to use volatile.
 **When NOT to use volatile**
 - When a variable is only used by a single thread.
 - When a variable is used to store a large amount of data.
+
+**Producer Consumer Application**
+- This kind of application has a class that produces data, so the Producer. 
+- It also has a class that reads the data, or consumes it in some way, this is the Consumer.
+
+**Deadlock**
+- Thread A is our Consumer. 
+- It can usually get in, to run the read method, because the hasMessage flag is usually true.
+- If the flag is false, it will execute it's while loop.
+- It's waiting on that hasMessage flag to change value, to exit the loop.
+- That flag is never going to change its value.
+- Thread A has acquired a lock on the shared resourse, in this case the Message Repository, and Thread B can't get that lock. 
+- Because Thread B is blocked, it can't change the flag, that would set the condition to let Thread A exit it's while loop, and release the lock.
+- The threads are stuck, one spinning indefinitely, the other blocked from doing anything. 
+- This is a classic deadlock situation. 
+
+**The Object class's wait, notify and notifyAll methods**
+- The wait, notify, and notifyAll methods, are used to manage some monitor lock situations, to prevent threads from blocking indefinitely.
+- Because these methods are on Object, any instance of any class, can execute these methods, from within a synchronized method or statement. 
+
+**The Purpose of a Lock**
+- The purpose of a lock is to control access to a shared resource by multiple threads. 
+
+**Limitations of the Monitor Lock**
+- The monitor lock is pretty easy to use, but it does have limitations. 
+    1. There's no way to test if the intrinsic lock has already been acquired. 
+  2. There's no way to interrupt a blocked thread.
+  3. There's not an easy way to debug, or examine the intrinsic lock. 
+  4. The intrinsic lock is an exclusive lock. 
+
+**java.util.concurrent.locks package**
+- JDK5 gave us the java.util.concurrent package.
+- This provided developers with some additional solutions, to prevent problems in a multi-threaded environment. 
+- The Lock Interface, and some of the provided implementations, can give us a bit more control, and flexibility over locking, and when and how to block threads. 
+
+**Lock Hold Count**
+- The hold count of a lock counts the number of times that a single thread, the owner of the lock, has acquired the lock.
+  - When a thread acquires a lock for the first time, the lock's hold count is set to one. 
+  - If a lock is re-entrant, and a thread, reacquires the same lock, the lock's hold count will get incremented. 
+  - When a thread releases a lock, the lock's hold count is decremented. 
+  - A lock is only released when it's hold count becomes zero.
+  - Because of this, it's really important to include a call to the unlock method in a finally clause, of any code that will acquire a lock, even if it's re-entrant.
+  
+**Review of the Advantages of using Lock implementations**
+- **Explicit Control** over when to acquire and release locks, making it easier to avoid deadlocks, and manage other concurrency challenges. 
+- **Timeouts** allow you to attempt to acquire a lock without blocking indefinitely.
+- Along with timeouts, **Interruptible Locking** lets you handle interruptions during acquisition more gracefully.
+- **Improved Debugging** methods let you query the number of waiting threads, and check if a thread holds a lock.
+- 

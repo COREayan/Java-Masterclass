@@ -19,7 +19,7 @@ public class Main {
                 String::toUpperCase,
                 s -> s += " " + getRandomChar('D', 'M') + ".",
                 //s -> s += " " + reverse(s, 0, s.indexOf(" ")),
-                Main::reverse,
+                //Main::reverse,
                 String::new,
                 s -> new String(s)
         ));
@@ -39,7 +39,7 @@ public class Main {
         return (char) random.nextInt((int) startChar, (int) endChar+1);
     }
 
-    private static String reverse(String s) {
-        return reverse(s, 0, s.length());
-    }
+//    private static String reverse(String s) {
+//        return reverse(s, 0, s.length());
+//    }
 }
