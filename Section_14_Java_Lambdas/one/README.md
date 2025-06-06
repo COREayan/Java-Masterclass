@@ -326,4 +326,3 @@ In the case of our generated expression, it returns an int, which is the result 
 <code>String::concat</code>
 - Any method reference that uses String::concat, must be in the context of a two-parameter functional method.
 - The first parameter is the String instance on which the concat method get invoked, and the second argument is the String argument passed to the concat method. 
-- 
