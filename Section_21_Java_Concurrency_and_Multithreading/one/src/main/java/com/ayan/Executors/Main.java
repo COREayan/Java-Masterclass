@@ -4,26 +4,53 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
-class ColorThreadFactor implements ThreadFactory {
+class ColorThreadFactory implements ThreadFactory {
 
     private String threadName;
 
-    public ColorThreadFactor(ThreadColor color) {
+    private int colorValue = 1;
+
+    public ColorThreadFactory(ThreadColor color) {
         this.threadName = color.name();
+    }
+
+    public ColorThreadFactory() {
+
     }
 
     @Override
     public Thread newThread(Runnable r) {
         Thread thread = new Thread(r);
-        thread.setName(threadName);
+        String name = threadName;
+        if (name == null) {
+            name = ThreadColor.values()[colorValue].name();
+        }
+        if (++colorValue > (ThreadColor.values().length - 1)) {
+            colorValue = 1;
+        }
+
+        thread.setName(name);
         return thread;
     }
 }
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        int count = 6;
+        var multiExecutor = Executors.newFixedThreadPool(
+                count, new ColorThreadFactory()
+        );
+
+        for (int i=0; i<count; i++) {
+            multiExecutor.execute(Main::countDown);
+        }
+
+        multiExecutor.shutdown();
+    }
+
+    public static void singlemain(String[] args) throws InterruptedException {
         var blueExecutor = Executors.newSingleThreadExecutor(
-                new ColorThreadFactor(ThreadColor.ANSI_BLUE)
+                new ColorThreadFactory(ThreadColor.ANSI_BLUE)
         );
         blueExecutor.execute(Main::countDown);
         blueExecutor.shutdown();
@@ -34,7 +61,7 @@ public class Main {
         if (isDone) {
             System.out.println("Blue finished, starting Yellow");
             var yellowExecutor = Executors.newSingleThreadExecutor(
-                    new ColorThreadFactor(ThreadColor.ANSI_YELLOW)
+                    new ColorThreadFactory(ThreadColor.ANSI_YELLOW)
             );
             yellowExecutor.execute(Main::countDown);
             yellowExecutor.shutdown();
@@ -44,7 +71,7 @@ public class Main {
             if (isDone) {
                 System.out.println("Yellow finished, starting Red");
                 var redExecutor = Executors.newSingleThreadExecutor(
-                        new ColorThreadFactor(ThreadColor.ANSI_RED)
+                        new ColorThreadFactory(ThreadColor.ANSI_RED)
                 );
                 redExecutor.execute(Main::countDown);
                 redExecutor.shutdown();
