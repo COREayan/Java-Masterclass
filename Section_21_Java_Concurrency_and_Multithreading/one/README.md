@@ -315,3 +315,159 @@ There are specific scenarios when you'll want to use volatile.
 | Tasks Executed | At least one, the first to complete.                                                                                 | All tasks get executed.                                                                                                 |
 | Result         | Result of the first task to complete, not a Future.                                                                  | Returns a list of results, as futures, for all of the tasks, once they have all completed.                              |
 | Use cases      | Use this method when you need a quick response back from one of several tasks, and you don't care if some will fail. | Use this method when you want all the tasks to be executed concurrently, and all tasks must complete before proceeding. |
+
+**Scheduling Tasks**
+- You schedule tasks with a special type of ExecutorService, the ScheduledExecutorService.
+
+**Work Stealing Thread Pool**
+- The work stealing thread pool is used for parallelism, and concurrent execution of tasks. 
+- Each worker thread finishes its own tasks, and its queue is empty, it can "steal" tasks from the back of other worker threads.
+- When a worker thread finishes its own tasks, and its queue is empty, it can "steal" tasks from the back of other worker threads' queues.
+- This helps to balance the workload among threads, reduces idle time, and optimizes resource usage. 
+
+**The ForkJoinPool**
+- The ForkJoinPool class is Java's implementation of the Work Stealing Pool.
+- It's based on the fork-join, or divide and conquer algorithm of computing. 
+- This algorithm
+  - breaks down a complex task into smaller subtasks, 
+  - processes them independently and in parallel, 
+  - and then combines the results to solve the original problem. 
+
+**Types of Parallelism**
+- **Task parallelism** divides a program into smaller tasks that get executed concurrently. Each task can run on a separate thread or processor core.
+- **Data parallelism** processes different parts of the same data concurrently.
+
+**Parallel Streams**
+- Parallel streams allow you to perform operations on collections in parallel, thus potentially speeding up data processing.
+- The key advantages of parallel streams are:
+  - Improved performance on multi-core CPUs.
+  - Simplified code for concurrent processing.
+  - Automatic workload distribution among available threads.
+
+**Why a parallel stream may not always be faster than a serial stream**
+- Parallel streams introduce some overhead, such as the need to create and manage multiple threads. This overhead can be significant for small arrays.
+- Parallel streams need to synchronize their operations to ensure that the results are correct. This synscrhonization can also add overhead, especially for small arrays.
+
+**Parallel Streams**
+- It's not always a straightforward decision, whether to use parallel operations or not.
+
+**Why the HashMap isn't thread-safe**
+- The HashMap 
+  - Lacks synchronization.
+  - There are no guarantees of memory consistency, while iterating.
+  
+**Concurrent Classes vs. Synchronized Wrapper Classes**
+- Both concurrent and synchronized collections are thread-safe, and can be used in parallel streams, or in a multi-threaded application.
+  - **Synchronized collections** are implemented using locks which protect the collection from concurrent access. This means a single lock is used to synchronize access to the entire map.
+  - **Concurrent collections** are more efficient than synchronized collections, because they use techniques like fine-grained locking, or non-blocking algorithms to enable safe concurrent access without the need for heavy handed locking, meaning synchronized or single access locks.
+  - Concurrent collections are recommended over synchronized collections in most scenarios.
+
+**Concurrent Collections**
+- LinkedList and ArrayList, as well as TreeSet and HashSet, are also **NOT thread-safe.**
+- Each of these can be used with a synchronized wrapper, which you can get from the Collections helper class.
+- The synchronized wrappers provide a thread-safe option for you, with less impact on the design, if you need to make existing code work concurrently.
+- If you're starting with new code though, I'd recommend using concurrent collections.
+
+**Concurrent Collections for Arrays and Lists**
+- For lists, there are two concurrent collection choices, depending on the type of work which needs to be done in parallel. 
+  - Use ConcurrentLinkedQueue when you'll have frequent insertions and removals, such as producer-consumer scenarios, or task scheduling. 
+  - Use CopyOnWriteArrayList when you have a read-heavy workload with infrequent modifications. This type of list is useful for scenarios like configuration management, or read-only views of data.
+- For an array, you can use one of the concurrent list options above
+  - Or Use an ArrayBlockingQueue. This is a fixed-size queue, that blocks under two circumstances. The first is if you try to poll or remove an element from an empty queue. The second is fi you try to offer, or add an element to a full queue. This is designed as a First In First Out or FIFO queue.
+  
+**CopyOnWriteArrayList**
+- The name "CopyOnWrite" is important.
+- Whenever this list is modified, by adding, updating, or removing elements, a new copy of the underlying array is created. 
+- The modification is performed on the new copy, allowing concurrent read operations to use the original unmodified array.
+- This ensures that reader threads aren't blocked by writers.
+- Since changes are made to a separate copy of the array, there aren't any synchronization issues between the reading and writing threads.
+- This is ordinarily too cotsly, but may be more efficient than alternatives when traversal operations, vastly outnumber mutations.
+
+**Deadlock in the Consumer Producer Example**
+- In an earlier video, I demonstrated a deadlock, with the Consumer Producer sample code.
+- Both classes were accessing a single boolean field, on a shared object, in a while loop with no code in it.
+- We resolved this situation by using the notifyAll, and wait methods on object, in both of these methods.
+
+**The Common Problems in a Multi-Threaded Application**
+
+| Problem    | Description                                                                                          | 
+|------------|------------------------------------------------------------------------------------------------------|
+| Deadlock   | Two or more threads are blocked, waiting for each other to release a resource.                       |
+| Livelock   | Two or more threads are continuously looping, each waiting for the other thread to take some action. | 
+| Starvation | A thread is not able to obtain the resources it needs to execute.                                    | 
+
+**A Second Deadlock Scenario**
+- When both threads need access to multiple resources in a certain order, this can cause contention, and produce a deadlock.
+
+**Preventing Deadlocks** 
+- A couple of common ways to avoid this kind of deadlock situation, are listed here.
+  -  Organize your locks into a hierarcy, and ensure that all threads acquire locks in the same order to avoid circular waiting, which is a common cause of deadlocks. This approach helps establish a global lock order that all threads must follow.
+  - Instead of using traditional synchronized blocks or methods, you can use the tryLock method on the Lock interface. This method allows you to attempt to acquire a lock. If it fails, you can handle this situation without causing a deadlock.
+
+**Livelock**
+- A livelock is when two or more threads are continuously reacting, each responding to the other's actions. And they can never successfully complete.
+- You can find different examples of this problem on the internet.
+
+**Livelocks can be difficult to debug and fix**
+- Livelocks can be difficult to debug and fix.
+- For this reason, there are a few general things you can do to avoid them:
+  - Avoid having threads that are constantly checking each other's states.
+  - Use timeouts to prevent threads from waiting indefinitely for each other.
+  - Use randomization to break the symmetry between threads.
+
+**Starvation**
+- Starvation occurs when one thread is unable to obtain the resource it needs, to execute.
+- This is usually caused by other concurrent threads being greedy. 
+- Some threads are able to make progress, but others can't.
+- This means your application may still keep running, and some of the work is getting done, but not all of it.
+
+**Fair Locks** 
+- A fair lock guarantees that all threads waiting to acquire the lock will be given an equal chance of acquiring it.
+- This is in contrast to an unfair lock, which doesn't make any guarantees.
+- Remember, the monitor lock is unfair.
+- A Reentrant lock can be fair or unfair.
+
+**How Fair Locks Work**
+- When a thread requests access to a fair lock, it gets added to a FIFO queue.
+- The lock is then granted to the thread at the head of the queue, or the first in.
+
+**Should you use a fair lock?**
+- Benefits: 
+  - Fair locks can help to prevent thread starvations.
+  - They may improve the overall performance of a system, by ensuring that all threads get a chance of accessing resources. 
+  - They can make a system more predictable and easier to debug.
+- Drawbacks:
+  - Fair locks might have a negative impact on performance, especially in systems where threads are frequently competing for locks.
+  - Fair locks can be more difficult to implement.
+
+**java.util.concurrency.atomic**
+- This one is java.util.concurrency.atomic.
+- A small toolkit of classes that support lock-free, thread-safe programming on single variables.
+- Why is lock-free so important?
+- These classes can significantly improve the performance of concurrent applications, especially in high-throughput systems.
+
+**Atomic Classes**
+- The java.util.concurrent.atomic package, has several atomic classes as shown on this slide, including atomic arrays.
+- In each of these cases, an instance of one of these classes can be updated atomically.
+- Let me encourage you to review this toolkit, if you're working on concurrent applications.
+
+**WatchService Interface**
+- The final type I want to talk about, is kind of fun, it's the WatchService.
+- This is a special type of service, which watches registered objects for changes and events.
+- For example, a file manager may use a watch service, to monitor a directory for changes, so that it can update its display of the list of files, when files are created or deleted.
+
+**Using a Watch Service**
+- A Watchable object is registered with the watch service.
+- When events occur on the registered object, they're queued on the watch service.
+- A consumer can retrieve and process the event information, using the poll or take methods on the queue.
+
+**WatchKey States and Relationship**
+- When initially created, the WatchKey is said to be ready.
+- When an event is detected, then the WatchKey is signalled, a special state, which means it can be polled.
+- A Watchkey gets queued at this point, on the WatchService, so that it can be retrieved, by invoking the watch service's poll or take methods. 
+- Once signalled, a WatchKey remains in this state, until its reset method is invoked.
+- When that happens, the WatchKey returns to the ready state.
+- Events detected while the key is in the signalled state, are added to the WatchKey.
+- A Watch Key has a list events, that occurred while the WatchKey was in the signalled state.
+- Each WatchEvent object represents a specific change, to the watchable object.
+- 
