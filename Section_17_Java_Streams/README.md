@@ -77,4 +77,9 @@
 - At that point, the valve is shut, and the piepleine closed. 
 - You can't turn it back on, or reuse it for a new source.
 - If you want to do the same sort of thing with a different variable for one of the intermediate operations, you'd need to set up a new pipeline.
+
+**Stream Types May Change As the Pipeline Process Progresses**
+- An intermediate operation can usually be recognized by its signature, because it returns a Stream.
+- I want to point out, that this doesn't mean the element type of the Stream can't change.
+- In practice, you'll be regularly transforming your stream element to a different type.
 - 

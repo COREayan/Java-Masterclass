@@ -1,6 +1,8 @@
 package com.ayan.Streams;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,13 +19,13 @@ public class Main {
         }
 
         Collections.shuffle(bingoPool);
-        for (int i=0; i<15; i++) {
+        for (int i=0; i<75; i++) {
             System.out.println(bingoPool.get(i));
         }
         System.out.println("-------------------------------------");
 
 //        List<String> firstOnes = bingoPool.subList(0, 15);
-        List<String> firstOnes = new ArrayList<>(bingoPool.subList(0, 15));
+        List<String> firstOnes = new ArrayList<>(bingoPool.subList(0, 75));
         firstOnes.sort(Comparator.naturalOrder());
         firstOnes.replaceAll(s -> {
             if (s.indexOf('G') == 0 || s.indexOf("O") == 0) {
@@ -45,7 +47,7 @@ public class Main {
                 .filter(s -> s.indexOf('G') == 0 || s.indexOf("O") == 0)
                 .map(s -> s.charAt(0) + "-" + s.substring(1))
                 .sorted()
-                .forEach(s -> System.out.println(s + " "));
+                .forEach(s -> System.out.print(s + " "));
 
         for (int i=0; i<15; i++) {
             System.out.println(bingoPool.get(i));
@@ -63,5 +65,85 @@ public class Main {
         System.out.println("\n-------------------------------------");
 
 //        tempStream.forEach(s -> System.out.print(s.toLowerCase() + " "));
+
+        String[] strings = {"One", "Two", "Three"};
+        Arrays.stream(strings)
+                .sorted(Comparator.reverseOrder())
+                .forEach(System.out::println);
+
+        Stream.of("Six", "Five", "Four")
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
+
+        System.out.println("\n-----------------------------------");
+        var firstStream = Arrays.stream(strings)
+                .sorted(Comparator.reverseOrder());
+
+        var secondStream = Stream.of("Six", "Five", "Four")
+                .map(String::toUpperCase);
+
+//        Stream.concat(secondStream, firstStream)
+//                .forEach(System.out::println);
+
+        Stream.concat(secondStream, firstStream)
+                .map(s -> s.charAt(0) + " - " + s)
+                .forEach(System.out::println);
+
+        Map<Character, int[]> myMap = new LinkedHashMap<>();
+        int bingoIndex = 1;
+        for (char c : "BINGO".toCharArray()) {
+            int[] numbers = new int[15];
+            int labelNo = bingoIndex;
+            Arrays.setAll(numbers, i -> i + labelNo);
+            myMap.put(c, numbers);
+            bingoIndex += 15;
+        }
+
+        myMap.entrySet()
+                .stream()
+                .map(e -> e.getKey() + " has range: " + e.getValue()[0] + " - "
+                        + e.getValue()[e.getValue().length - 1])
+                .forEach(System.out::println);
+
+        Random random = new Random();
+        Stream.generate(() -> random.nextInt(2))
+                .limit(10)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.iterate(1, n -> n + 1)
+                .filter(Main::isPrime)
+                .limit(20)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.iterate(1, n -> n + 1)
+                .limit(100)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.iterate(1, n -> n <= 100, n -> n + 1)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+
+        System.out.println();
+        IntStream.range(1, 100)
+                .filter(Main::isPrime)
+                .forEach(s -> System.out.print(s + " "));
+    }
+
+    private static boolean isPrime(int wholeNumber) {
+        if (wholeNumber <= 2) {
+            return (wholeNumber == 2);
+        }
+
+        for (int divisor = 2; divisor < wholeNumber; divisor++) {
+            if (wholeNumber % divisor == 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
