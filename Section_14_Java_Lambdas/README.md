@@ -322,7 +322,28 @@ In the case of our generated expression, it returns an int, which is the result 
 <code>String::concat</code>
 - This is valid when you use a method reference in the context of an **unbounded receiver.**
 
-**Remember, the unbounded receiver means that the first argument becomes the instance used on which the method gets invoked. **
+**Remember, the unbounded receiver means that the first argument becomes the instance used on which the method gets invoked.**
 <code>String::concat</code>
 - Any method reference that uses String::concat, must be in the context of a two-parameter functional method.
 - The first parameter is the String instance on which the concat method get invoked, and the second argument is the String argument passed to the concat method. 
+
+**Convenience Methods**
+- In this video, you'll learn how to do something similar, using what are called convenience methods. 
+- These are default methods on some of the functional interfaces I've been covering in the last few videos.
+- The Consumer, Predicate, and Function interfaces all come with these methods, as does the Comparator, which I'll also include here. 
+
+**Convenience Methods on functional interfaces in java.util.function package**
+
+| Category of Interface | Convenience method example                | Notes                                                        |
+|-----------------------|-------------------------------------------|--------------------------------------------------------------|
+| Function              | <code>function1.andThen(function2)</code> | Not implemented on IntFunction, DoubleFunction, LongFunction |
+| Function              | <code>function2.compose(function1)</code> | Only implemented on Function & UnaryOperator                 |
+| Consumer              | <code>consumer1.andThen(consumer2)</code> |                                                              |
+| Predicate             | <code>predicate.and(predicate2)</code>    |                                                              |
+| Predicate             | <code>predicate.or(predicate2)</code>     |                                                         |
+| Predicate             | <code>predicate1.negate()</code>          |                                                              |
+
+- For and Then, and compose, on the Function category of interfaces, any Interim functions are not required to have the same type arguments.
+- Instead, one function's output becomes the next function's input, and the next function's output is not constrained to any specific type, except the last function executed in the chain. 
+- The Consumer's andThen method is different, because it never returns a result, so you use this when you're chaining methods independent of one another.
+- The Predicate methods always return a boolean, which will combine the output of the two expressions, to obtain a final boolean result.
