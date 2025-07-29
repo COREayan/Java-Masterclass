@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d4405d29-dfac-4fa9-ab28-83bc6ff06027" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/LambdaExpresionChallenge/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/LambdaExpresionChallenge/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/LambdaExpressions/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/LambdaExpressions/Operation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/LambdaIntro/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/MethodReferencesChallenge/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/MethodReferencesChallenge/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/methodReferences/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/miniLambdaChallenges/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/one/src/main/java/com/ayan/miniLambdaChallenges/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/intellij-javadocs-4.0.1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/material_theme_project_new.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/LambdaExpresionChallenge/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/LambdaExpresionChallenge/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/LambdaExpressions/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/LambdaExpressions/Operation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/LambdaIntro/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/MethodReferencesChallenge/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/MethodReferencesChallenge/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/methodReferences/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/miniLambdaChallenges/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Section_14_Java_Lambdas/src/main/java/com/ayan/miniLambdaChallenges/README.md" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="30XbI2ntqH4RjypljBeiQlPAuM5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ayana/Documents/Github/Java-Masterclass/Section_13_NestedClasses_LocalTypes_AnonymousClasses/one",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ayan.Main" />
+      <module name="one" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ayan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d4405d29-dfac-4fa9-ab28-83bc6ff06027" name="Changes" comment="" />
+      <created>1753776781767</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753776781767</updated>
+    </task>
+    <servers />
+  </component>
+</project>
