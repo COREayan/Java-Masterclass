@@ -114,3 +114,21 @@
 - If you've had experience querying databases, you might be familiar with the limit and distinct keywords, available in many database query languages.
 - The filter operation represents your where clause, and sorted would be your order by clause, and so on.
 - There are aggregate functions commonly used in queries as well, such as max, min, count and so on. 
+
+**Intermediate Operations that operate on every element**
+
+| Return Type | Operation                                             | Description                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Stream<R>` | map(Function<? super T, ? extends R> mapper)          | This function applied to every element in the stream. Because it's a function, the return type can be different, which has the effect of transforming the stream to a different stream of different types.                            |
+| `Stream<T>` | peek(Consumer<? super T> action                       | This function doesn't change the stream, but allows you to perform some interim consumer function while the pipeline is processing.                                                                                                   |
+| `Stream<T>` | sorted()<br/>sorted(Comparator<? super T> comparator) | There are two versions of sorted.<br/>The first uses the naturaalOrder sort, which means elements in the stream must implement Comparable.<br/>If your elements don't use Comparable, you'll wan to use sorted and pass a Comparator. |
+
+**Primitive Streams**
+- In addition to the generic Stream, that lets you stream any reference type, Java has three primitive streams.
+
+  | Special Primitive Streams | Mapping from Reference Type to Primitive                    | Mapping from Primitive Stream to Reference Type                     |
+  |---------------------------|-------------------------------------------------------------|---------------------------------------------------------------------|
+  | DoubleStream              | <code>mapToDouble(ToDoubleFunction<? super T> mapper</code> | <code>mapToObj(DoubleFunction<? extends U> mapper)</code>           |
+  | IntStream                 | <code>mapToInt(ToIntFunction<? super T> mapper)</code>      | <code>mapToObj(IntFunction<? extends U> mapper)                     |
+  | LongStream                | <code>mapToLong(ToLongFunction<? super T> mapper)</code>    | <code>mapToObj(LongFunction<? extends U> mapper)<br/>boxed()</code> |
+ 
